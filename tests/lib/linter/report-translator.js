@@ -1013,6 +1013,28 @@ describe("createReportTranslator", () => {
         });
     });
 
+    describe("extra property", () => {
+        it("should be part of the translated report", () => {
+            assert.deepStrictEqual(
+                translateReport({ node, message: "my message", extra: { innerExtra: { a: 1 }, b: 1 } }),
+                {
+                    severity: 2,
+                    ruleId: "foo-rule",
+                    message: "my message",
+                    nodeType: "ExpressionStatement",
+                    line: 1,
+                    column: 1,
+                    endLine: 1,
+                    endColumn: 4,
+                    extra: {
+                        innerExtra: { a: 1 },
+                        b: 1
+                    }
+                }
+            );
+        });
+    });
+
     describe("validation", () => {
 
         it("should throw an error if node is not an object", () => {
