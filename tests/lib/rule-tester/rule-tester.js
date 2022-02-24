@@ -805,6 +805,58 @@ describe("RuleTester", () => {
         }, "Error endColumn should be 10");
     });
 
+    it("should not throw an error if invalid code specifies correct extra", () => {
+
+        // should not throw
+        ruleTester.run("no-eval", require("../../fixtures/testers/rule-tester/extra"), {
+            valid: [
+                "var bar = 42;"
+            ],
+            invalid: [
+                {
+                    code: "var foo = 42;",
+                    errors: [
+                        {
+                            message: "Avoid using identifiers named 'foo'.",
+                            extra: {
+                                someExtraInfo: {
+                                    pi: 3.14,
+                                    e: 2.71
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+
+    it("should throw an error if invalid code specifies wrong extra", () => {
+        assert.throws(() => {
+            ruleTester.run("no-eval", require("../../fixtures/testers/rule-tester/extra"), {
+                valid: [
+                    "var bar = 42;"
+                ],
+                invalid: [
+                    {
+                        code: "var foo = 42;",
+                        errors: [
+                            {
+                                message: "Avoid using identifiers named 'foo'.",
+                                extra: {
+                                    someExtraInfo: {
+                                        pi: 31.4,
+                                        e: 2.71
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            });
+        }, "Invalid 'extra' property");
+    });
+
     it("should throw an error if invalid code has the wrong number of errors", () => {
         assert.throws(() => {
             ruleTester.run("no-eval", require("../../fixtures/testers/rule-tester/no-eval"), {
