@@ -7,7 +7,7 @@
 
 # ESLint
 
-## This is a fork of ESLint by SonarSource to add support for 'extra' error property (see [PR #1](https://github.com/SonarSource/eslint/pull/2))
+## This is a fork of ESLint by SonarSource to add support for 'extra' error property (see [PR #1](https://github.com/SonarSource/eslint/pull/1))
 
 [Website](https://eslint.org) |
 [Configuring](https://eslint.org/docs/user-guide/configuring) |
